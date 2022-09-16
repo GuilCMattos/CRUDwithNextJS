@@ -9,6 +9,14 @@ const Clients = [
   new Client('Ju', 12, '4'),
 ]
 
+function clientSelect(client: any) { 
+  console.log(client.name)
+}
+
+function clientDelet(client: any) { 
+  console.log(client.name)
+}
+
 export default function Home() {
   return (
     <div className={ 
@@ -17,7 +25,7 @@ export default function Home() {
       text-white `
     }>
       <Layout title="Cadastro Simples" >
-        <Table clients={Clients}></Table>
+        <Table clients={Clients} clientsSelect={clientSelect} clientsDelet={clientDelet}></Table>
       </Layout>
     </div>
   )
