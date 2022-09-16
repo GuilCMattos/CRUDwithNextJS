@@ -1,4 +1,5 @@
 import Button from "../components/Button";
+import Form from "../components/Forms";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Client from "../core/Client";
@@ -29,7 +30,8 @@ export default function Home() {
         <div className="flex justify-end">
         <Button className="mb-4">Novo Cliente</Button>
         </div>
-        <Table clients={Clients} clientsSelect={clientSelect} clientsDelet={clientDelet}></Table>
+        {/* <Table clients={Clients} clientsSelect={clientSelect} clientsDelet={clientDelet}></Table> */}
+        <Form client={Clients[2]}/>
       </Layout>
     </div>
   )
