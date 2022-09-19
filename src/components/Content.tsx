@@ -49,7 +49,7 @@ import Client from "../core/Client";
 
         <>
         <div className="flex justify-end">
-        <Button onClick={()=> newClient()} className="mb-4">Novo Cliente</Button>
+        <Button onClick={()=> newClient(client)} className="mb-4">Novo Cliente</Button>
         </div>
         <Table clients={Clients} clientsSelect={clientSelect} clientsDelet={clientDelet}></Table>
         
