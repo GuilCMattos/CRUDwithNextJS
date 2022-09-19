@@ -1,35 +1,46 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import CollectionClient from "../backend/db/CollectionClient";
 import Button from "../components/Button";
 import Form from "../components/Forms";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Client from "../core/Client";
+import ClientRepository from "../core/ClientRepository";
 
   export default function Content() { 
+
+    const repo: ClientRepository = new CollectionClient()
 
     const [visible, setVisible] = useState<'table' | 'form' >('table')
 
     const [client, setClient] = useState<Client>(Client.vazio())
-    const Clients = [
-      new Client('Ana', 34, '1'),
-      new Client('Bia', 45, '2'),
-      new Client('Gui', 25, '3'),
-      new Client('Ju', 12, '4'),
-    ]
+
+    const [clients, setClients] = useState<Client>()
+
+    useEffect(obterTodos, [])
+
+    function obterTodos() { 
+      repo.obterTodos().then(clients => { 
+        setClients(clients)
+        setVisible('table')
+      })
+    }
     
     function clientSelect(client: any) { 
       setClient(client)
       setVisible('form')
     }
     
-    function clientDelet(client: any) { 
-      console.log(client.name)
+    async function clientDelet(client: any) { 
+      await repo.excluir(client)
+      
+      obterTodos()
     }
 
-    function saveClient(client: any) { 
-      console.log(client)
-      setVisible('table')
+    async function saveClient(client: any) { 
+      await repo.salvar(client)
+      obterTodos()
     }
 
     function newClient(client: any) { 
@@ -51,7 +62,7 @@ import Client from "../core/Client";
         <div className="flex justify-end">
         <Button onClick={()=> newClient(client)} className="mb-4">Novo Cliente</Button>
         </div>
-        <Table clients={Clients} clientsSelect={clientSelect} clientsDelet={clientDelet}></Table>
+        <Table clients={clients} clientsSelect={clientSelect} clientsDelet={clientDelet}></Table>
         
         </>
 
